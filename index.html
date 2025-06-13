@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comunidade fSociety</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Fira Code', monospace;
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    #matrix {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: auto;
+      padding: 3rem 1rem 6rem;
+    }
+
+    h1, h2, h3, p, li, blockquote {
+      text-shadow: 0 0 8px #0044ff, 0 0 16px #0022ff, 0 0 32px #0000ff;
+    }
+
+    h1 { font-size: 2.75rem; margin: 0 0 0.5rem; }
+    h2 { font-size: 1.75rem; margin: 2.5rem 0 1rem; }
+    h3 { font-size: 1.25rem; margin: 1.5rem 0 0.75rem; }
+
+    .banner, .section {
+      background: rgba(17, 17, 17, 0.85);
+      border-radius: 0.75rem;
+      box-shadow: 0 0 12px rgba(0, 0, 255, 0.4);
+      margin-top: 2rem;
+      padding: 2rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: #0000ff;
+      color: #fff;
+      padding: 1rem 2.5rem;
+      margin-top: 2rem;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 12px #0022ff, 0 0 24px #0011ff, 0 0 48px #0000ff;
+      transition: 0.25s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 0 20px #0022ff, 0 0 40px #0011ff, 0 0 80px #0000ff;
+    }
+
+    .highlight {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .hero-img {
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      border-radius: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 24px #0011ff;
+    }
+
+    ul { padding-left: 1.25rem; }
+    li::marker { color: #0044ff; }
+
+    @media (max-width: 600px){
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.4rem; }
+      .cta-button { padding: 0.75rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+
+  <div class="container">
+    <img src="C:\Users\c00y0\OneDrive\Área de Trabalho\Hacker.png" alt="Hacker" class="hero-img" />
+
+    <div class="banner">
+      <h1>Comunidade fSociety</h1>
+      <h2 id="tagline">Torne-se Um Hacker de Elite!</h2>
+      <p>Ebooks, Vídeo-Aulas, Mentorias e Networking Profundo</p>
+      <a href="#comunidade" class="cta-button">QUERO ENTRAR AGORA</a>
+    </div>
+
+    <div class="section" id="comunidade">
+      <h2>O Que é a Comunidade fSociety?</h2>
+      <p>A Comunidade fSociety é o destino ideal para quem busca conhecimento real e direto sobre hacking, programação, engenharia social, segurança digital e marketing underground — tudo com conteúdo vitalício por apenas <strong>R$19</strong>.</p>
+      <p>Você terá acesso a mais de <strong>70 cursos em vídeo</strong>, <strong>600+ ebooks em PDF</strong>, scripts, ferramentas, e ainda poderá participar de <strong>mentorias exclusivas</strong>.</p>
+    </div>
+
+    <div class="section">
+      <h2>Conteúdo Disponível</h2>
+      <ul>
+        <li>🛡️ Hacking: Técnicas de Invasão, Malware, Red Team, OSINT, Engenharia Social</li>
+        <li>💻 Programação: Python, C++, Go, PHP, Front-End, Unity, Engenharia de Software</li>
+        <li>🧠 Mentorias: orientação prática para aplicar o conteúdo</li>
+        <li>📚 Biblioteca com ebooks raros e ferramentas de alto nível</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Por Que Entrar?</h2>
+      <ul>
+        <li>✅ Acesso vitalício</li>
+        <li>✅ Atualizações semanais</li>
+        <li>✅ Suporte da comunidade</li>
+        <li>✅ Tudo em um só lugar: aprendizado + prática + networking</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Investimento</h2>
+      <p>Acesso único e vitalício por apenas:</p>
+      <h2 class="highlight">R$19 à vista</h2>
+      <p>Menos de R$0,30 por curso!</p>
+      <a href="#comunidade" class="cta-button">GARANTIR MEU ACESSO</a>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    const fontSize = 16, chars = '01';
+    let width, height, drops;
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      drops = Array(Math.floor(width / fontSize)).fill(0);
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = '#0033ff';
+      ctx.font = fontSize + 'px "Fira Code"';
+      drops.forEach((y, i) => {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, y * fontSize);
+        if (y * fontSize > height && Math.random() > 0.975) {
+          drops[i] = 0;
+        } else {
+          drops[i]++;
+        }
+      });
+    }
+    setInterval(draw, 30);
+  </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+body {
+  background-color: black;
+  color: green;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 20px;
+}
+
+#terminal {
+  white-space: pre-wrap;
+}
