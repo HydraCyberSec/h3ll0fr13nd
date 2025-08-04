@@ -2,171 +2,1036 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Comunidade h3ll0fr13nd.gnu</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Comunidade definitiva para hackers éticos e pesquisadores de segurança digital" />
+  <title>CDN | Submundo Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary: #00ff00;
+      --primary-dark: #00aa00;
+      --secondary: #00ff88;
+      --dark: #000000;
+      --darker: #050505;
+      --gray: #0a0a0a;
+      --light: #e0ffe0;
+      --glow: 0 0 15px var(--primary);
+      --glow-secondary: 0 0 15px var(--secondary);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --danger: #ff4444;
+    }
+
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
-    html, body {
-      height: 100%;
-      font-family: 'Fira Code', monospace;
-      background: #000;
-      color: #fff;
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background-color: var(--darker);
+      color: var(--light);
       overflow-x: hidden;
-      position: relative;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
-    canvas#matrix {
+
+    /* Efeito de partículas */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      background-color: var(--darker);
+    }
+
+    /* Efeito de gradiente animado */
+    #gradient-bg {
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, 
+        rgba(0, 10, 0, 0.9) 0%, 
+        rgba(0, 30, 0, 0.6) 50%, 
+        rgba(0, 40, 0, 0.7) 100%);
+      background-size: 200% 200%;
+      animation: gradientBG 15s ease infinite;
+      z-index: -2;
+      opacity: 0.8;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50% }
+      50% { background-position: 100% 50% }
+      100% { background-position: 0% 50% }
+    }
+
+    /* Efeito de grid holográfico */
+    #grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
+      background: 
+        linear-gradient(rgba(0, 255, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 0, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: -1;
+      pointer-events: none;
     }
-    .container {
-      position: relative;
-      z-index: 1;
-      max-width: 960px;
-      margin: auto;
-      padding: 3rem 1rem 6rem;
-    }
-    h1, h2, h3, p, li, blockquote {
-      text-shadow: 0 0 8px #0044ff, 0 0 16px #0022ff, 0 0 32px #0000ff;
-    }
-    h1 { font-size: 2.75rem; margin-bottom: 0.5rem; }
-    h2 { font-size: 1.75rem; margin: 2.5rem 0 1rem; }
-    h3 { font-size: 1.25rem; margin: 1.5rem 0 0.75rem; }
-    .banner, .section {
-      background: rgba(17, 17, 17, 0.85);
-      border-radius: 0.75rem;
-      box-shadow: 0 0 12px rgba(0, 0, 255, 0.4);
-      margin-top: 2rem;
-      padding: 2rem;
-    }
-    .cta-button {
-      display: inline-block;
-      background: #0000ff;
-      color: #fff;
-      padding: 1rem 2.5rem;
-      margin-top: 2rem;
-      font-weight: 700;
-      text-decoration: none;
-      border-radius: 0.5rem;
-      box-shadow: 0 0 12px #0022ff, 0 0 24px #0011ff, 0 0 48px #0000ff;
-      transition: 0.25s ease;
-    }
-    .cta-button:hover {
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: 0 0 20px #0022ff, 0 0 40px #0011ff, 0 0 80px #0000ff;
-    }
-    .highlight {
-      font-size: 2rem;
-      font-weight: 700;
-    }
-    .hero-img {
-      width: 100%;
-      max-height: 480px;
-      object-fit: cover;
-      border-radius: 1rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 0 24px #0011ff;
-    }
-    ul { padding-left: 1.25rem; }
-    li::marker { color: #44ff00; }
 
-    @media (max-width: 600px){
-      h1 { font-size: 2rem; }
-      h2 { font-size: 1.4rem; }
-      .cta-button { padding: 0.75rem 1.5rem; }
+    /* Container principal */
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 3rem 2rem;
+      background: rgba(10, 15, 10, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      border: 1px solid rgba(0, 255, 0, 0.2);
+      box-shadow: 
+        0 0 30px rgba(0, 255, 0, 0.1),
+        inset 0 0 20px rgba(0, 255, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0, 255, 0, 0.1) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg) }
+      to { transform: rotate(360deg) }
+    }
+
+    /* Cabeçalho */
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      color: var(--primary); /* Isso usará a cor verde definida em :root */
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      text-shadow: var(--glow); /* Isso usará o efeito glow verde definido em :root */
+      position: relative;
+      display: inline-block;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: var(--primary); /* Verde */
+      box-shadow: var(--glow); /* Efeito glow verde */
+    }
+
+    h2 {
+      color: var(--primary);
+      font-size: 1.8rem;
+      margin: 2rem 0 1.5rem;
+      text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    }
+
+    .tagline {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tagline span {
+      background: rgba(0, 255, 0, 0.1);
+      border: 1px solid var(--primary);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      color: var(--primary);
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Typing effect */
+    .typewriter {
+      color: var(--primary);
+      font-size: 1.3rem;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      margin: 1rem auto;
+      max-width: 100%;
+      border-right: 2px solid var(--primary);
+      animation: typing 3s steps(40, end), blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    /* Botões */
+    .button {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: var(--darker);
+      padding: 1.2rem 2.5rem;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 8px;
+      margin: 2rem auto;
+      display: inline-block;
+      text-align: center;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 
+        0 5px 15px rgba(0, 255, 0, 0.4),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+      z-index: -1;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 
+        0 8px 25px rgba(0, 255, 0, 0.6),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .button:hover::before {
+      left: 100%;
+    }
+
+    .button-secondary {
+      background: linear-gradient(135deg, var(--secondary) 0%, #00aa55 100%);
+      box-shadow: 
+        0 5px 15px rgba(0, 255, 136, 0.4),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .button-secondary:hover {
+      box-shadow: 
+        0 8px 25px rgba(0, 255, 136, 0.6),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Lista de recursos */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .feature-card {
+      background: rgba(15, 20, 15, 0.7);
+      border: 1px solid rgba(0, 255, 0, 0.2);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 255, 0, 0.1);
+      border-color: var(--primary);
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    .feature-card:hover::before {
+      width: 100%;
+      opacity: 0.1;
+    }
+
+    .feature-card h3 {
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .feature-card i {
+      font-size: 1.2rem;
+    }
+
+    /* Seção de identificação */
+    .pain-points {
+      background: rgba(20, 25, 20, 0.7);
+      border-left: 3px solid var(--secondary);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .pain-points h2 {
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+
+    .pain-points ul {
+      list-style-type: none;
+    }
+
+    .pain-points li {
+      padding: 0.5rem 0;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .pain-points li:before {
+      content: '>';
+      position: absolute;
+      left: 0;
+      color: var(--secondary);
+    }
+
+    /* Bônus com escassez */
+    .bonus-section {
+      background: rgba(0, 20, 0, 0.7);
+      border: 1px solid var(--secondary);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bonus-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
+      z-index: -1;
+    }
+
+    .bonus-section h2 {
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+
+    .bonus-section p {
+      font-size: 1.1rem;
+    }
+
+    /* Depoimentos */
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .testimonial-card {
+      background: rgba(20, 25, 20, 0.7);
+      border-radius: 10px;
+      padding: 1.5rem;
+      border-left: 3px solid var(--secondary);
+      position: relative;
+    }
+
+    .testimonial-card::after {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 4rem;
+      color: rgba(0, 255, 136, 0.1);
+      font-family: serif;
+      line-height: 1;
+    }
+
+    .testimonial-card p {
+      font-style: italic;
+      color: #ccc;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-card .author {
+      color: var(--secondary);
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Seção de preço */
+    .pricing {
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .price-box {
+      background: rgba(0, 10, 0, 0.7);
+      border: 1px solid var(--primary);
+      border-radius: 10px;
+      padding: 2rem;
+      max-width: 500px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .price-box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0, 255, 0, 0.05) 0%, transparent 70%);
+      z-index: -1;
+    }
+
+    .highlight-price {
+      color: var(--primary);
+      font-size: 3rem;
+      font-family: 'Orbitron', sans-serif;
+      margin: 1rem 0;
+      text-shadow: var(--glow);
+    }
+
+    .sub-price {
+      color: #aaa;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Efeito de pulso no preço */
+    @keyframes pulse {
+      0% { transform: scale(1) }
+      50% { transform: scale(1.05) }
+      100% { transform: scale(1) }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    /* Efeito de pulso vermelho */
+    @keyframes pulse-red {
+      0% { color: var(--danger); text-shadow: 0 0 10px rgba(255, 68, 68, 0.5); }
+      50% { color: #ff7777; text-shadow: 0 0 15px rgba(255, 68, 68, 0.8); }
+      100% { color: var(--danger); text-shadow: 0 0 10px rgba(255, 68, 68, 0.5); }
+    }
+
+    .pulse-red {
+      animation: pulse-red 1.5s infinite;
+    }
+
+    /* Rodapé */
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(0, 255, 0, 0.2);
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .container {
+        padding: 2rem 1rem;
+        margin: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .features-grid, .testimonials {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Efeitos especiais */
+    .hacker-terminal {
+      background: rgba(0, 10, 0, 0.8);
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      font-family: 'JetBrains Mono', monospace;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .terminal-header {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+    }
+
+    .terminal-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .terminal-btn.red { background: #ff5f56 }
+    .terminal-btn.yellow { background: #ffbd2e }
+    .terminal-btn.green { background: #27c93f }
+
+    .terminal-line {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+
+    .terminal-prompt {
+      color: var(--primary);
+      margin-right: 0.5rem;
+    }
+
+    .terminal-cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1.2rem;
+      background: var(--primary);
+      margin-left: 0.2rem;
+      animation: blink 1s infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0 }
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      background: var(--dark);
+      border: 1px solid var(--primary);
+      border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+      animation: modalFadeIn 0.3s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-50px) }
+      to { opacity: 1; transform: translateY(0) }
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      color: var(--primary);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .close-modal:hover {
+      color: var(--secondary);
+    }
+
+    /* Pop-up de urgência */
+    .urgency-popup {
+      position: fixed;
+      bottom: -150px;
+      right: 20px;
+      width: 350px;
+      background: rgba(10, 20, 10, 0.95);
+      border: 1px solid var(--primary);
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+      z-index: 999;
+      transition: all 0.5s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .urgency-popup.show {
+      bottom: 20px;
+    }
+
+    .urgency-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .urgency-timer {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--danger);
+      text-align: center;
+      margin: 1rem 0;
+      text-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+    }
+
+    .urgency-message {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      color: #ccc;
+    }
+
+    .urgency-button {
+      display: block;
+      width: 100%;
+      padding: 0.8rem;
+      background: linear-gradient(135deg, var(--secondary) 0%, #00aa55 100%);
+      color: var(--darker);
+      text-align: center;
+      border-radius: 5px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .urgency-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+    }
+
+    .close-popup {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-size: 1.2rem;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <canvas id="matrix"></canvas>
+  <!-- Efeito de partículas -->
+  <div id="particles-js"></div>
+  
+  <!-- Gradiente animado -->
+  <div id="gradient-bg"></div>
+  
+  <!-- Grid holográfico -->
+  <div id="grid-overlay"></div>
 
-  <div class="container">
-    <img src="cyber.png" alt="cyber.png" class="hero-img" />
-
-    <div class="banner">
-      <h1>Comunidade h3ll0fr13nd.gnu</h1>
-      <h2 id="tagline">Torne-se Um Hacker de Elite!</h2>
-      <p>Ebooks, Vídeo-Aulas, Mentorias e Networking Profundo</p>
-      <a href="https://pay.cakto.com.br/gdz8etv_435383" class="cta-button">QUERO ENTRAR AGORA</a>
+  <!-- Pop-up de urgência -->
+  <div class="urgency-popup" id="urgencyPopup">
+    <div class="urgency-header">
+      <h3>OFERTA POR TEMPO LIMITADO</h3>
+      <button class="close-popup">&times;</button>
     </div>
+    <div class="urgency-timer pulse-red" id="countdown">15:00</div>
+    <p class="urgency-message">Esta oferta expira em breve! Garanta seu acesso vitalício ao CDN antes que o tempo acabe.</p>
+    <a href="https://pay.cakto.com.br/ox4m74r_509045" class="urgency-button">GARANTIR ACESSO AGORA</a>
+  </div>
 
-    <div class="section" id="comunidade">
-      <h2>O Que é a Comunidade h3ll0fr13nd.gnu?</h2>
-      <p>A Comunidade h3ll0fr13nd.gnu é o destino ideal para quem busca conhecimento real e direto sobre hacking, programação, engenharia social, segurança digital e marketing underground,  tudo com conteúdo vitalício por apenas <strong style="color: #44ff00;">R$33,97</strong>
-      <p>Você terá acesso a mais de <strong>70 cursos em vídeo</strong>, <strong>600+ ebooks em PDF</strong>, scripts, ferramentas, e ainda poderá participar de <strong>mentorias exclusivas</strong>.</p>
-    </div>
+  <main class="container">
+    <header>
+      <h1>CDN</h1>
+      <div class="typewriter">Entre para a Elite | Acesso Vitalício | Networking Hacker</div>
+      
+      <div class="tagline">
+        <span><i class="fas fa-shield-alt"></i> Segurança Digital</span>
+        <span><i class="fas fa-code"></i> Programação Avançada</span>
+        <span><i class="fas fa-user-secret"></i> Anonimato</span>
+      </div>
+      
+      <a href="https://pay.cakto.com.br/ox4m74r_509045" class="button pulse">ACESSO VITALÍCIO</a>
+    </header>
 
-    <div class="section">
-      <h2>Conteúdo Disponível</h2>
-      <ul>
-        <li>🛡️ Hacking: Técnicas de Invasão, Malware, Red Team, OSINT, Engenharia Social</li>
-        <li>💻 Programação: Python, C++, Go, PHP, Front-End, Unity, Engenharia de Software</li>
-        <li>🧠 Mentorias: orientação prática para aplicar o conteúdo</li>
-        <li>📚 Biblioteca com ebooks raros e ferramentas de alto nível</li>
-      </ul>
-    </div>
+    <section>
+      <h2>DOMINE O SUBMUNDO DIGITAL</h2>
+      <p style="text-align: center; margin-bottom: 2rem;">
+        A comunidade definitiva para hackers éticos, pesquisadores de segurança e entusiastas da inteligência digital.
+      </p>
 
-    <div class="section">
-      <h2>Por Que Entrar?</h2>
-      <ul>
-        <li>✅ Acesso vitalício</li>
-        <li>✅ Atualizações semanais</li>
-        <li>✅ Suporte da comunidade</li>
-        <li>✅ Tudo em um só lugar: aprendizado + prática + networking</li>
-      </ul>
-    </div>
+      <!-- Seção de identificação com a dor -->
+      <div class="pain-points">
+        <h2>Você se identifica com isso?</h2>
+        <ul>
+          <li>Já baixou cursos piratas e nunca terminou?</li>
+          <li>Sente que está perdido entre mil PDFs e canais do Telegram?</li>
+          <li>Nunca conseguiu colocar na prática o que estudou?</li>
+        </ul>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3><i class="fas fa-lock"></i> Segurança Ofensiva</h3>
+          <p>Domine técnicas avançadas de pentesting, exploração de vulnerabilidades e engenharia reversa.</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3><i class="fas fa-eye"></i> OSINT & Inteligência</h3>
+          <p>Técnicas profissionais de coleta de informações e análise de dados em fontes abertas.</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3><i class="fas fa-terminal"></i> Programação Hacker</h3>
+          <p>Python, C, Assembly e outras linguagens essenciais para desenvolvimento de ferramentas.</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3><i class="fas fa-database"></i> Exploits & Malware</h3>
+          <p>Análise e desenvolvimento de exploits, malwares e técnicas de persistência.</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3><i class="fas fa-network-wired"></i> Redes Profundas</h3>
+          <p>Navegação anônima, dark web e protocolos alternativos de comunicação.</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3><i class="fas fa-users"></i> Comunidade Elite</h3>
+          <p>Acesso a uma rede privada de profissionais e entusiastas de segurança digital.</p>
+        </div>
+      </div>
+    </section>
 
-    <div class="section">
-      <h2>Investimento</h2>
-      <p>Acesso único e vitalício por apenas:</p>
-      <h2 class="highlight" style="color: #44ff00;">R$33,97 à vista</h2>
-      <p>Menos de R$0,50 por curso!</p>
-      <a href="https://pay.cakto.com.br/gdz8etv_435383" class="cta-button">GARANTIR MEU ACESSO</a>
+    <section class="hacker-terminal">
+      <div class="terminal-header">
+        <div class="terminal-btn red"></div>
+        <div class="terminal-btn yellow"></div>
+        <div class="terminal-btn green"></div>
+      </div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">user@cdn:~$</span> 
+        <span>cat recursos.txt</span>
+      </div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">></span> 
+        <span>+70 Cursos Completos</span>
+      </div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">></span> 
+        <span>600+ PDFs e Manuais Raros</span>
+      </div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">></span> 
+        <span>Ferramentas Exclusivas</span>
+      </div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">></span> 
+        <span>Laboratórios Virtuais</span>
+      </div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">></span> 
+        <span>Suporte da Comunidade</span>
+      </div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">user@cdn:~$</span> 
+        <span>_<span class="terminal-cursor"></span></span>
+      </div>
+    </section>
+
+    <section>
+      <h2>DEPOIMENTOS</h2>
+      <div class="testimonials">
+        <div class="testimonial-card">
+          <p>"Em 3 meses na CDN alcancei um nível que não conseguiria em anos de estudo sozinho. As mentorias e materiais são incomparáveis."</p>
+          <div class="author">
+            <i class="fas fa-user-secret"></i> Anon7h3r
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <p>"Finalmente encontrei uma comunidade que realmente entende de segurança digital. O conhecimento compartilhado aqui mudou minha carreira."</p>
+          <div class="author">
+            <i class="fas fa-user-secret"></i> ZeroDayQueen
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <p>"Como profissional de cybersecurity, posso afirmar que o conteúdo da CDN está anos à frente do que se vê no mercado."</p>
+          <div class="author">
+            <i class="fas fa-user-secret"></i> CyberPhreak
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de bônus com escassez -->
+    <section class="bonus-section">
+      <h2>BÔNUS EXCLUSIVO PARA QUEM COMPRAR HOJE</h2>
+      <p>🎁 Acesso ao grupo secreto no Telegram + um curso extra de Engenharia Social (somente para os primeiros 30).</p>
+    </section>
+
+    <section id="cta" class="pricing">
+      <h2>ACESSO VITALÍCIO</h2>
+      <div class="price-box">
+        <p>Tudo o que você precisa para dominar o submundo digital em um único lugar</p>
+        <div class="highlight-price">R$32,00</div>
+        <div class="sub-price">Pagamento único | 7 dias de garantia</div>
+        <a href="https://pay.cakto.com.br/ox4m74r_509045" class="button button-secondary">ENTRAR PARA A ELITE</a>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2023 CDN | Todos os direitos reservados</p>
+      <p>Este é um projeto educacional. Não apoiamos atividades ilegais.</p>
+    </footer>
+  </main>
+
+  <!-- Modal -->
+  <div id="accessModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2 style="color: var(--primary); margin-bottom: 1rem;">ACESSO AO CDN</h2>
+      <p style="margin-bottom: 1.5rem;">Clique no botão abaixo para ser redirecionado para a página de pagamento:</p>
+      <a href="https://pay.cakto.com.br/ox4m74r_509045" class="button" style="width: 100%; text-align: center;">IR PARA PAGAMENTO</a>
     </div>
   </div>
 
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
-    const canvas = document.getElementById('matrix');
-    const ctx = canvas.getContext('2d');
-    const fontSize = 16;
-    const chars = '01';
-    let columns, drops;
-
-    function setupMatrix() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      columns = Math.floor(canvas.width / fontSize);
-      drops = Array(columns).fill(1);
-    }
-
-    function drawMatrix() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#00bfff';
-      ctx.font = fontSize + 'px monospace';
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = chars.charAt(Math.floor(Math.random() * chars.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
+    // Inicialização do efeito de partículas
+    document.addEventListener('DOMContentLoaded', function() {
+      particlesJS('particles-js', {
+        particles: {
+          number: { 
+            value: 120,
+            density: { 
+              enable: true, 
+              value_area: 800 
+            } 
+          },
+          color: { 
+            value: "#00ff00" 
+          },
+          shape: { 
+            type: "circle" 
+          },
+          opacity: { 
+            value: 0.8,
+            random: true 
+          },
+          size: { 
+            value: 4,
+            random: true 
+          },
+          line_linked: { 
+            enable: true, 
+            distance: 150, 
+            color: "#00ff00",
+            opacity: 0.6,
+            width: 1 
+          },
+          move: { 
+            enable: true, 
+            speed: 3,
+            direction: "none", 
+            random: true, 
+            straight: false, 
+            out_mode: "out" 
+          }
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: { 
+              enable: true, 
+              mode: "repulse" 
+            },
+            onclick: { 
+              enable: true, 
+              mode: "push" 
+            }
+          }
         }
-        drops[i]++;
-      }
-    }
+      });
 
-    setupMatrix();
-    setInterval(drawMatrix, 33);
-    window.addEventListener('resize', setupMatrix);
+      // Simulação de terminal
+      const terminalLines = [
+        "iniciando_sistema.sh --access-level=5",
+        "carregando_modulos... [OK]",
+        "verificando_credenciais... [OK]",
+        "conectando_servidor_privado... [OK]",
+        "bem_vindo_ao_CDN"
+      ];
+      
+      let currentLine = 0;
+      const terminal = document.querySelector('.hacker-terminal');
+      
+      function addTerminalLine() {
+        if (currentLine < terminalLines.length) {
+          const line = document.createElement('div');
+          line.className = 'terminal-line';
+          line.innerHTML = `<span class="terminal-prompt">></span> <span>${terminalLines[currentLine]}</span>`;
+          terminal.insertBefore(line, terminal.lastElementChild);
+          currentLine++;
+          setTimeout(addTerminalLine, 800);
+        }
+      }
+      
+      setTimeout(addTerminalLine, 1500);
+
+      // Modal
+      const modal = document.getElementById('accessModal');
+      const closeModal = document.querySelector('.close-modal');
+      
+      closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+      });
+      
+      window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+
+      // Pop-up de urgência
+      const urgencyPopup = document.getElementById('urgencyPopup');
+      const closePopup = document.querySelector('.close-popup');
+      const countdownElement = document.getElementById('countdown');
+      const urgencyMessage = document.querySelector('.urgency-message');
+      const urgencyButton = document.querySelector('.urgency-button');
+      
+      // Mostrar pop-up após 5 segundos
+      setTimeout(() => {
+        urgencyPopup.classList.add('show');
+      }, 5000);
+      
+      // Fechar pop-up
+      closePopup.addEventListener('click', function() {
+        urgencyPopup.classList.remove('show');
+      });
+      
+      // Contador regressivo
+      let minutes = 15;
+      let seconds = 0;
+      let timerExpired = false;
+      
+      function updateCountdown() {
+        if (timerExpired) return;
+        
+        countdownElement.textContent = 
+          `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        if (seconds === 0) {
+          if (minutes === 0) {
+            // Tempo acabou
+            timerExpired = true;
+            countdownElement.textContent = "00:00";
+            urgencyMessage.textContent = "Tempo esgotado. Esta oferta expirou.";
+            urgencyButton.style.display = 'none';
+            countdownElement.classList.remove('pulse-red');
+            countdownElement.style.color = '#666';
+            return;
+          }
+          minutes--;
+          seconds = 59;
+        } else {
+          seconds--;
+        }
+        
+        setTimeout(updateCountdown, 1000);
+      }
+      
+      updateCountdown();
+      
+      // Mostrar/ocultar pop-up ao rolar
+      let lastScrollPosition = 0;
+      window.addEventListener('scroll', function() {
+        const currentScrollPosition = window.pageYOffset;
+        
+        if (currentScrollPosition > lastScrollPosition) {
+          // Rolando para baixo - mostrar pop-up
+          urgencyPopup.classList.add('show');
+        } else if (currentScrollPosition < lastScrollPosition - 100) {
+          // Rolando para cima - ocultar pop-up
+          urgencyPopup.classList.remove('show');
+        }
+        
+        lastScrollPosition = currentScrollPosition;
+      });
+    });
   </script>
 </body>
 </html>
