@@ -135,10 +135,10 @@
     }
 
     h1 {
-      color: var(--primary); /* Isso usará a cor verde definida em :root */
+      color: var(--primary);
       font-size: 2.8rem;
       margin-bottom: 1rem;
-      text-shadow: var(--glow); /* Isso usará o efeito glow verde definido em :root */
+      text-shadow: var(--glow);
       position: relative;
       display: inline-block;
     }
@@ -151,8 +151,8 @@
       transform: translateX(-50%);
       width: 100px;
       height: 3px;
-      background: var(--primary); /* Verde */
-      box-shadow: var(--glow); /* Efeito glow verde */
+      background: var(--primary);
+      box-shadow: var(--glow);
     }
 
     h2 {
@@ -498,26 +498,6 @@
       font-size: 0.9rem;
     }
 
-    /* Responsividade */
-    @media (max-width: 768px) {
-      .container {
-        padding: 2rem 1rem;
-        margin: 1rem;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
-
-      h2 {
-        font-size: 1.5rem;
-      }
-
-      .features-grid, .testimonials {
-        grid-template-columns: 1fr;
-      }
-    }
-
     /* Efeitos especiais */
     .hacker-terminal {
       background: rgba(0, 10, 0, 0.8);
@@ -619,16 +599,16 @@
       color: var(--secondary);
     }
 
-    /* Pop-up de urgência */
+    /* Pop-up de urgência - MODIFICADO */
     .urgency-popup {
       position: fixed;
       bottom: -150px;
       right: 20px;
-      width: 350px;
+      width: 300px; /* Reduzido de 350px */
       background: rgba(10, 20, 10, 0.95);
       border: 1px solid var(--primary);
       border-radius: 10px;
-      padding: 1.5rem;
+      padding: 1rem; /* Reduzido de 1.5rem */
       box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
       z-index: 999;
       transition: all 0.5s ease;
@@ -643,30 +623,31 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem; /* Reduzido de 1rem */
       color: var(--primary);
       font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem; /* Adicionado para reduzir tamanho */
     }
 
     .urgency-timer {
-      font-size: 1.5rem;
+      font-size: 1rem; /* Reduzido de 1.5rem */
       font-weight: bold;
       color: var(--danger);
       text-align: center;
-      margin: 1rem 0;
+      margin: 0.5rem 0; /* Reduzido de 1rem 0 */
       text-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
     }
 
     .urgency-message {
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
+      font-size: 0.8rem; /* Reduzido de 0.9rem */
+      margin-bottom: 0.8rem; /* Reduzido de 1rem */
       color: #ccc;
     }
 
     .urgency-button {
       display: block;
       width: 100%;
-      padding: 0.8rem;
+      padding: 0.6rem; /* Reduzido de 0.8rem */
       background: linear-gradient(135deg, var(--secondary) 0%, #00aa55 100%);
       color: var(--darker);
       text-align: center;
@@ -674,6 +655,7 @@
       font-weight: bold;
       text-decoration: none;
       transition: var(--transition);
+      font-size: 0.8rem; /* Adicionado para reduzir tamanho */
     }
 
     .urgency-button:hover {
@@ -685,8 +667,66 @@
       background: none;
       border: none;
       color: var(--primary);
-      font-size: 1.2rem;
+      font-size: 1rem; /* Reduzido de 1.2rem */
       cursor: pointer;
+      transition: var(--transition);
+      padding: 0;
+      line-height: 1;
+    }
+
+    .close-popup:hover {
+      color: var(--danger);
+      transform: scale(1.2);
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .container {
+        padding: 2rem 1rem;
+        margin: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .typewriter {
+        white-space: normal;
+        animation: none;
+        border-right: none;
+        text-align: center;
+        font-size: 1.1rem;
+      }
+
+      .features-grid, .testimonials {
+        grid-template-columns: 1fr;
+      }
+
+      .urgency-popup {
+        width: calc(100% - 40px);
+        right: 20px;
+        left: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tagline {
+        flex-direction: column;
+      }
+      
+      .tagline span {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .button {
+        padding: 1rem 1.5rem;
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
@@ -700,11 +740,11 @@
   <!-- Grid holográfico -->
   <div id="grid-overlay"></div>
 
-  <!-- Pop-up de urgência -->
+  <!-- Pop-up de urgência MODIFICADO -->
   <div class="urgency-popup" id="urgencyPopup">
     <div class="urgency-header">
       <h3>OFERTA POR TEMPO LIMITADO</h3>
-      <button class="close-popup">&times;</button>
+      <button class="close-popup" id="closePopupBtn">&times;</button>
     </div>
     <div class="urgency-timer pulse-red" id="countdown">15:00</div>
     <p class="urgency-message">Esta oferta expira em breve! Garanta seu acesso vitalício ao CDN antes que o tempo acabe.</p>
@@ -735,7 +775,7 @@
       <div class="pain-points">
         <h2>Você se identifica com isso?</h2>
         <ul>
-          <li>Já comprou cursos e nunca terminou?</li>
+          <li>Já baixou cursos piratas e nunca terminou?</li>
           <li>Nunca conseguiu colocar na prática o que estudou?</li>
           <li>Você quer entrar na área do hacking, mas tudo parece confuso e sem sentido?</li>
         </ul>
@@ -966,22 +1006,30 @@
         }
       });
 
-      // Pop-up de urgência
+      // Pop-up de urgência - MODIFICADO
       const urgencyPopup = document.getElementById('urgencyPopup');
-      const closePopup = document.querySelector('.close-popup');
+      const closePopupBtn = document.getElementById('closePopupBtn');
       const countdownElement = document.getElementById('countdown');
       const urgencyMessage = document.querySelector('.urgency-message');
       const urgencyButton = document.querySelector('.urgency-button');
       
-      // Mostrar pop-up após 5 segundos
-      setTimeout(() => {
-        urgencyPopup.classList.add('show');
-      }, 5000);
-      
-      // Fechar pop-up
-      closePopup.addEventListener('click', function() {
+      // Função para fechar o pop-up
+      function closePopup() {
         urgencyPopup.classList.remove('show');
-      });
+        // Armazenar no localStorage que o popup foi fechado
+        localStorage.setItem('popupClosed', 'true');
+      }
+      
+      // Verificar se o popup já foi fechado antes
+      if (!localStorage.getItem('popupClosed')) {
+        // Mostrar pop-up após 5 segundos
+        setTimeout(() => {
+          urgencyPopup.classList.add('show');
+        }, 5000);
+      }
+      
+      // Fechar pop-up ao clicar no botão
+      closePopupBtn.addEventListener('click', closePopup);
       
       // Contador regressivo
       let minutes = 15;
@@ -1019,20 +1067,22 @@
       // Mostrar/ocultar pop-up ao rolar
       let lastScrollPosition = 0;
       window.addEventListener('scroll', function() {
-        const currentScrollPosition = window.pageYOffset;
-        
-        if (currentScrollPosition > lastScrollPosition) {
-          // Rolando para baixo - mostrar pop-up
-          urgencyPopup.classList.add('show');
-        } else if (currentScrollPosition < lastScrollPosition - 100) {
-          // Rolando para cima - ocultar pop-up
-          urgencyPopup.classList.remove('show');
+        // Só mostrar se não foi fechado manualmente
+        if (!localStorage.getItem('popupClosed')) {
+          const currentScrollPosition = window.pageYOffset;
+          
+          if (currentScrollPosition > lastScrollPosition) {
+            // Rolando para baixo - mostrar pop-up
+            urgencyPopup.classList.add('show');
+          } else if (currentScrollPosition < lastScrollPosition - 100) {
+            // Rolando para cima - ocultar pop-up
+            urgencyPopup.classList.remove('show');
+          }
+          
+          lastScrollPosition = currentScrollPosition;
         }
-        
-        lastScrollPosition = currentScrollPosition;
       });
     });
   </script>
 </body>
 </html>
-
